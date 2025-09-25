@@ -1,0 +1,28 @@
+From 25c3655977a1e57b655cd7dd0f065c26c453bfa1 Mon Sep 17 00:00:00 2001
+From: fukiame <fukiame@proton.me>
+Date: Fri, 27 Dec 2024 18:10:25 +0700
+Subject: [PATCH 3/3] blossom: lights: drop minimum light value from 19 to 6
+
+i love aal
+
+Signed-off-by: fukiame <fukiame@proton.me>
+---
+ lights/Light.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lights/Light.cpp b/lights/Light.cpp
+index 61519e2..3e805e4 100644
+--- a/lights/Light.cpp
++++ b/lights/Light.cpp
+@@ -86,7 +86,7 @@ static inline uint32_t scaleBrightness(uint32_t brightness, uint32_t maxBrightne
+         return 0;
+     }
+ 
+-    return (brightness - 1) * (maxBrightness - 19) / (0xFF - 1) + 19;
++    return (brightness - 1) * (maxBrightness - 6) / (0xFF - 1) + 6;
+ }
+ 
+ static inline uint32_t getScaledBrightness(const HwLightState& state, uint32_t maxBrightness) {
+-- 
+2.51.0
+

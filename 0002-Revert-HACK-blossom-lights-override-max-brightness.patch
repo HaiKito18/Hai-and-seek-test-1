@@ -1,0 +1,52 @@
+From fc2db950468d2ca48b149dd5410b4f441cc4a71d Mon Sep 17 00:00:00 2001
+From: fukiame <fukiame@proton.me>
+Date: Fri, 27 Dec 2024 18:06:19 +0700
+Subject: [PATCH 2/3] Revert "[HACK] blossom: lights: override max brightness"
+
+7e56b5c575883ca4a420df491090504faffa6412 should have taken care of the
+issue
+
+This reverts commit d84d22a74ee26dde5b6deb8a3caa62eb9bb758c9.
+
+Signed-off-by: fukiame <fukiame@proton.me>
+---
+ lights/Light.cpp | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/lights/Light.cpp b/lights/Light.cpp
+index 12b8441..61519e2 100644
+--- a/lights/Light.cpp
++++ b/lights/Light.cpp
+@@ -48,8 +48,6 @@ static void set(std::string path, int value) {
+  * Read max brightness from path and close file.
+  */
+ static int getMaxBrightness(std::string path) {
+-    // T25 start - override max brightness
+-    /*
+     std::ifstream file(path);
+     int value;
+ 
+@@ -59,10 +57,6 @@ static int getMaxBrightness(std::string path) {
+     }
+ 
+     file >> value;
+-    */
+-    // overridden due to faulty behavior
+-    int value = 1023;
+-    // T25 end
+     return value;
+ }
+ 
+@@ -92,8 +86,7 @@ static inline uint32_t scaleBrightness(uint32_t brightness, uint32_t maxBrightne
+         return 0;
+     }
+ 
+-    // T25 - reduce min brightness to 13
+-    return (brightness - 1) * (maxBrightness - 13) / (0xFF - 1) + 13;
++    return (brightness - 1) * (maxBrightness - 19) / (0xFF - 1) + 19;
+ }
+ 
+ static inline uint32_t getScaledBrightness(const HwLightState& state, uint32_t maxBrightness) {
+-- 
+2.51.0
+
